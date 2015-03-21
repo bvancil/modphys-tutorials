@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    
+    <title>Test of Reveal.js</title>
+    <meta name="description" content="Test of Reveal.js in Math and Physics">
+    <meta name="author" content="Brian Vancil">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    
+    <link rel="stylesheet" href="reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="reveal.js/css/theme/night.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+     var link = document.createElement( 'link' );
+     link.rel = 'stylesheet';
+     link.type = 'text/css';
+     link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+     document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+    
+    <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       tex2jax: {
+         inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+         displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+         processEscapes: true
+       },
+       TeX: { 
+             extensions: ["AMSmath.js", "AMSsymbols.js", "AMScd.js"],
+             Macros: {
+           dd: '{\\operatorname{d}}',
+           vect: ['{\\boldsymbol{#1}}',1],
+           e: ['{\\vect{\\hat{e}}_{#1}}',1],
+           ZZ: '{\\mathbb{Z}}',
+           QQ: '{\\mathbb{Q}}',
+           RR: '{\\mathbb{R}}',
+           CC: '{\\mathbb{C}}'
+         }
+             }
+     });
+    </script>
+  </head>
+  
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+	<section>
+	  <h1>Test of Reveal.js</h1>
+	  <h2>for great physics</h2>
+	  <p>
+	    <small>Created by <a href="http://fockphysics.wordpress.com">Brian Vancil</a> / <a href="http://twitter.com/bvancil">@bvancil</a></small>
+	  </p>
+	</section>
+
+	<section>
+	  <h2>Stokes' Theorem</h2>
+	  <p>
+	    For a $(n-1)$-dimensional differential form $\omega\in\Omega^{n-1}(M)$ defined over an $n$-dimensional manifold, $M$:
+\[ \int\limits_M \dd \omega = \int\limits_{\partial M} \omega \]
+	  </p>
+          <div class="fragment">
+            <h2>Corollary of Stokes' Theorem</h2>
+            <p>  If $M$ is a manifold without boundary, then $\int\limits_M \dd \omega=0$.</p>
+          </div>
+	</section>
+
+	<!-- Example of nested vertical slides -->
+	<section>
+	  <section>
+	    <h2>Work this out</h2>
+	    <p>If we have two interacting objects, A and B, that don't interact with anything else, how do their momenta change?  In other words, how are $\Delta\vect{p}_{\text{A}}$ and $\Delta\vect{p}_{\text{B}}$ related?</p>
+	    <p>Hint: Start with Newton's 3rd Law (of Reciprocity), mix in Newton's 2nd Law (of Acceleration), and play around with it.</p>
+	  </section>
+	  <section>
+	    <h2>Work this out (solution)</h2>
+	    <p>
+              \begin{align}
+              \vect{F}_{\text{B on A}} &= -\vect{F}_{\text{A on B}} &\quad\text{(N3L)}& \\
+              m_{\text{A}}\vect{a}_{\text{A}} &= -m_{\text{B}}\vect{a}_{\text{B}} &\quad\text{(N2L substitution)}& \\
+              m_{\text{A}}\frac{\dd\vect{v}_{\text{A}}}{\dd t} &= -m_{\text{B}}\frac{\dd\vect{v}_{\text{B}}}{\dd t}&\quad\text{(Def. of }\vect{a}\text{ subst.)}& \\
+              m_{\text{A}}\dd\vect{v}_{\text{A}} &= -m_{\text{A}}\dd\vect{v}_{\text{A}} &\quad\text{(Multiply by }\dd t\text{)}& \\
+              \dd(m_{\text{A}}\vect{v}_{\text{A}}) &= -\dd(m_{\text{B}}\vect{v}_{\text{B}}) &\quad\text{(}m\text{ is constant.)}& \\
+              \dd p_{\text{A}} &= -\dd p_{\text{B}} &\quad\text{(Def. of }\vect{p}\text{ subst.)} \\
+              \Delta p_{\text{A}} &= -\Delta p_{\text{B}} &\quad\left(\int_{t=t_{\text{i}}}^{t=t_{\text{f}}}\right) &
+              \end{align}
+            </p>
+            <aside class="notes">This is a really terrible in-class problem, BTW.</aside>
+	  </section>
+	</section>
+
+	<section>
+	  <h2>Pretty Code</h2>
+	  <pre><code class="hljs haskell" data-trim contenteditable>
+cubes = map (^3) [0..]
+isCube n = elem n (takeWhile (<=n) cubes)
+test1 = map isCube [41063625, 56623104, 66430125]
+sorted :: Integer -> [Char]
+sorted = sort . show
+arePermutations m n = sorted m == sorted n
+relevantCubes n = let l = length (show n) 
+    in takeWhile (<=(10^l)) cubes
+--    in takeWhile (<=(10^l)) . dropWhile (<=(10^(l-1))) $ cubes
+frequencies :: (Eq a, Ord a) => [a] -> [(a,Int)]
+frequencies = map (\ys -> (head ys, length ys)) . group . sort
+sortedRelevantCubes n = map sorted $ relevantCubes n
+frequencyOf a xs = let searchList = filter (\(x, freq) -> x==a) . frequencies $ 
+xs
+    in  if searchList == []
+        then 0
+        else snd . head $ searchList
+countCubicPermutations n = frequencyOf (sorted n) (sortedRelevantCubes n)
+test2 = countCubicPermutations 41063625
+	  </code></pre>
+	</section>
+
+	<section>
+	  <h2>Table</h2>
+          <!-- TODO: Fix CSS to make this look decent. -->
+	  <table>
+	    <thead>
+	      <tr>
+		<th>Temperature</th>
+		<th>Resistance</th>
+	      </tr>
+	      <tr>
+		<th>$T$ / &deg;C</th>
+		<th>$R$ / &Omega;</th>
+	      </tr>
+	      <tr>
+		<th>&plusmn; 0.1</th>
+		<th>&plusmn; 5%</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td>0.0</td>
+		<td>137</td>
+	      </tr>
+	      <tr>
+		<td>10.3</td>
+		<td>193</td>
+	      </tr>
+	      <tr>
+		<td>32.1</td>
+		<td>360</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</section>
+
+      </div>
+
+    </div>
+
+    <script src="reveal.js/lib/js/head.min.js"></script>
+    <script src="reveal.js/js/reveal.js"></script>
+
+    <script>
+
+     // Full list of configuration options available at:
+     // https://github.com/hakimel/reveal.js#configuration
+     Reveal.initialize({
+       controls: true,
+       progress: true,
+       history: true,
+       center: true,
+
+       transition: 'slide', // none/fade/slide/convex/concave/zoom
+       math: {
+         mathjax: 'MathJax/MathJax.js',
+         config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+       },
+
+       // Optional reveal.js plugins
+       dependencies: [
+	 { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+	 { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	 { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	 { src: 'reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+	 { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+	 { src: 'reveal.js/plugin/notes/notes.js', async: true },
+         { src: 'reveal.js/plugin/math/math.js', async: true }  
+       ]
+     });
+
+    </script>
+
+  </body>
+</html>
