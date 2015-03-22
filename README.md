@@ -3,6 +3,6 @@ Interactive Content to Aid in Teaching Physics (mostly testing of features)
 
 ## Installation and Running
 
-* There are two git submodules, one for reveal.js and one for MathJax so that the presentations can be run offline.  If you want better version control, you could use `bower` or `npm`.
+* This uses [Bower](http://bower.io/) for managing packages.  Once you install Bower, type `bower install`.
 * Open `test.html`.
 * Copy and modify `test.html` as you like.
